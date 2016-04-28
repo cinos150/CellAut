@@ -1,0 +1,60 @@
+﻿<Window x:Name="MainWindow1" x:Class="CellularAutomaton.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CellularAutomaton"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Cellular Automaton" Height="670.5" Width="785" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"  >
+
+
+
+    <Grid Name="VisibleGrid" Background="White">
+        <Grid ClipToBounds="True" ZIndex="2">
+        <ToolBar Height="46" VerticalAlignment="Top" Margin="-4,-2,-2,0">
+            <Button HorizontalAlignment="Left" Width="100" Content="Add Rule" VerticalAlignment="Stretch" Click="ButtonBase_OnClick"/>
+            <Button Name="DeadButton" HorizontalAlignment="Left" Width="100" Content="Dead" VerticalAlignment="Stretch" Click="DeadButton_OnClick"/>
+            <Button Name="AliveButton" HorizontalAlignment="Left" Width="100" Content="Alive" VerticalAlignment="Stretch" Click="AliveButton_OnClick"/>
+            <Button Name="EmptyButton" HorizontalAlignment="Left" Width="100" Content="Empty" VerticalAlignment="Stretch" Click="EmptyButton_OnClick"/>
+            <Button Name="ResetButton" HorizontalAlignment="Left" Width="100" Content="Reset" VerticalAlignment="Stretch" Click="ResetButton_OnClick"/>
+            <Button Name="Start" HorizontalAlignment="Left" Width="100" Content="Start" VerticalAlignment="Stretch" Click="Start_OnClick"/>
+            <Button Name="Pause" HorizontalAlignment="Left" Width="100" Content="Pause" VerticalAlignment="Stretch" Click="Pause_OnClick"/>
+            <Button HorizontalAlignment="Left" Width="100" Content="Settings" VerticalAlignment="Stretch"/>
+            <Button HorizontalAlignment="Left" Width="100" Content="Load Rules" VerticalAlignment="Stretch"/>
+            <Button HorizontalAlignment="Left" Width="100" Content="Load Grids" VerticalAlignment="Stretch"/>
+              
+           
+                
+
+            </ToolBar>
+        </Grid>
+
+
+
+        <Canvas  MouseMove="MainCanvas_OnMouseMove" MouseWheel="Canvas_MouseWheel"  MouseDown="MainWindow1_MouseDown" x:Name="MainCanvas"   ClipToBounds="True" Margin="0,43,10,0" Height="500" VerticalAlignment="Top" >
+            <Canvas.Background>
+
+                <VisualBrush x:Name="VisualBrush" TileMode="Tile"
+            Viewport="0,0,2,2" ViewportUnits="Absolute" 
+            Viewbox="0,0,50,50" ViewboxUnits="Absolute" Stretch="Uniform">
+                    <VisualBrush.Visual>
+                        <Rectangle Stroke="Darkgray" StrokeThickness="1" Height="50" Width="50"
+                />
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Canvas.Background>
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="st"/>
+                    <TranslateTransform  x:Name="TranslateTransform"></TranslateTransform>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+
+        </Canvas>
+
+
+
+
+    </Grid>
+</Window>
