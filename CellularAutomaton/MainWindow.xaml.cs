@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -27,9 +28,11 @@ namespace CellularAutomaton
         private SolidColorBrush empty = Brushes.White;
         private SolidColorBrush dead = Brushes.Yellow;
         private SolidColorBrush alive = Brushes.Green;
+        private LogicGrid lGrid = null;
+        private  enum States { Empty, Alive, Dead };
+        private Rectangle[,] visualRectangle;
 
 
-      
 
 
         public MainWindow()
@@ -39,11 +42,26 @@ namespace CellularAutomaton
             VisibleGrid.Background = empty;
             st.ScaleX = 13;
             st.ScaleY = 13;
-            MainCanvas.Width= SystemParameters.PrimaryScreenWidth;
+
+            double  width = MainCanvas.Width = SystemParameters.PrimaryScreenWidth;
+            double height = MainCanvas.Height = SystemParameters.PrimaryScreenHeight;
+
+            visualRectangle = new Rectangle[(int)width, (int)height];
+
+            for (int i = 0; i < visualRectangle.GetLength(0); i++)
+            {
+                for (int j = 0; j < visualRectangle.GetLength(1); j++)
+                {
+                    visualRectangle[i, j] = new Rectangle();
+                }
+            }
 
 
-            MainCanvas.Height = SystemParameters.PrimaryScreenHeight;
-          
+            lGrid = new  LogicGrid(Convert.ToInt32(width), Convert.ToInt32(height),empty,dead,alive);
+
+
+
+
 
 
         }
@@ -65,8 +83,6 @@ namespace CellularAutomaton
             else if(e.Delta < 0 &&  st.ScaleX > 1)
             {
 
-
-
                 st.ScaleX /= ScaleRate;
                 st.ScaleY /= ScaleRate;
             }
@@ -75,46 +91,99 @@ namespace CellularAutomaton
 
         private Point startPoint;
         private Point originalPoint;
-        private Boolean flag = false; 
+        private Boolean flag = false;
         private void MainWindow1_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
-            try
-            {
-                Point cellPos = e.GetPosition(MainCanvas);
-             
+            var rekt = VisualBrush.Viewport;
 
-                Rectangle ClickedRectangle =
+            Point cellPos = e.GetPosition(MainCanvas);
+            int tempX = (int)(cellPos.X / rekt.Width);
+            int tempY = (int)(cellPos.Y / rekt.Height);
+
+            if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
+            {
+               
+               
+                    Rectangle ClickedRectangle = null;
+
+              
+
+
+
+                if (lGrid.LogicGrid1[tempX, tempY] != (int)States.Empty)
+                {
+
+                    try
+                    {
+                        ClickedRectangle =
                     VisualTreeHelper.HitTest(MainCanvas, cellPos).VisualHit as Rectangle;
 
 
-                if (ClickedRectangle.Fill == alive)
-                {
-                    ClickedRectangle.Fill =dead;
-                  
-                    return;
+
+
+                        if (ClickedRectangle.Fill == alive)
+                        {
+                            ClickedRectangle.Fill = dead;
+                            lGrid.LogicGrid1[tempX,tempY] = (int)States.Dead;
+                            visualRectangle[tempX, tempY] = ClickedRectangle;
+
+                            return;
+
+                        }
+                        else if (ClickedRectangle.Fill == dead)
+                        {
+
+                            MainCanvas.Children.Remove(ClickedRectangle);
+                            visualRectangle[tempX, tempY] = ClickedRectangle;
+                            lGrid.LogicGrid1[tempX, tempY] = (int)States.Empty;
+                            return;
+                        }
+                    }
+                    catch (NullReferenceException)
+                    {
+                        
+
+                    }
+
 
                 }
-                else if (ClickedRectangle.Fill == dead)
+                else
                 {
-                    MainCanvas.Children.Remove(ClickedRectangle);
-                    return;
+                    var newCell = new Rectangle
+                    {
+                        Width = rekt.Width,
+                        Height = rekt.Height,
+                        Fill = alive
+
+                    };
+
+
+
+                    newCell.Tag = new Point(tempX, tempY);
+                    Canvas.SetLeft(newCell, tempX * newCell.Width);
+                    Canvas.SetTop(newCell, tempY * newCell.Height);
+
+
+                    lGrid.LogicGrid1[tempX,tempY] = (int)States.Alive;
+                    visualRectangle[tempX, tempY] = newCell;
+
+                    MainCanvas.Children.Add(newCell);
                 }
+                
 
             }
-            catch (NullReferenceException)
-            {
-                //ignored for now
-            }
+          
 
-            var rekt = VisualBrush.Viewport;
+        
+           
 
-         if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Pressed)
+         if (e.ChangedButton == MouseButton.Right && e.ButtonState == MouseButtonState.Pressed)
          {
            
              startPoint = e.GetPosition(MainCanvas);
                 originalPoint = new Point(TranslateTransform.X, TranslateTransform.Y);
-             if (flag == false)
+             if (!flag )
              {
                     MainCanvas.CaptureMouse();
                     flag = true;
@@ -128,38 +197,18 @@ namespace CellularAutomaton
          }
 
 
-           else if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Released)
+           else if (e.ChangedButton == MouseButton.Right && e.ButtonState == MouseButtonState.Released)
             {
                 MainCanvas.ReleaseMouseCapture();
                 flag = false;
             }
-            else
-            {
-                var newCell = new Rectangle
-                {
-                    Width = rekt.Width,
-                    Height = rekt.Height,
-                    Fill = alive
-
-                };
-
-
-                var x = e.GetPosition(MainCanvas);
-                int tempX = (int) (x.X/rekt.Width);
-                int tempY = (int) (x.Y/rekt.Height);
-
-
-                Canvas.SetLeft(newCell, tempX*newCell.Width);
-                Canvas.SetTop(newCell, tempY*newCell.Height);
-
-                MainCanvas.Children.Add(newCell);
-            }
+           
         }
 
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            Window1 win2 = new Window1(empty, dead, alive);
+            AddRuleWindow win2 = new AddRuleWindow(empty, dead, alive);
             win2.Show();
            
         }
@@ -206,6 +255,7 @@ namespace CellularAutomaton
             TranslateTransform.X = 0;
             TranslateTransform.Y = 0;
             MainCanvas.Children.Clear();
+            Array.Clear(lGrid.LogicGrid1, 0, lGrid.LogicGrid1.Length);
 
         }
 
@@ -224,12 +274,29 @@ namespace CellularAutomaton
         {
             Button b = (Button)sender;
             b.Content = (String.Equals((string) b.Content, "Start", StringComparison.OrdinalIgnoreCase)) ? "Stop" : "Start";
+
+
+
+           
+                lGrid.LogicGrid1 = lGrid.computeGeneration(MainCanvas, visualRectangle, VisualBrush.Viewport);
+                
+            
+            
+
+            b.Content = "Start";
+
+
+
         }
 
         private void Pause_OnClick(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
             b.Content = (string.Equals((string)b.Content, "Pause", StringComparison.OrdinalIgnoreCase)) ? "Resume" : "Pause";
+
+
+
+
         }
     }
 

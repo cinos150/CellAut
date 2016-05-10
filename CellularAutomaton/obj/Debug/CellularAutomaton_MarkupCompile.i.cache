@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Visual studio apps\CellularAutomaton\CellularAutomaton\obj\Debug\
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\
 CellularAutomaton
 none
 false
 DEBUG;TRACE
-E:\Visual studio apps\CellularAutomaton\CellularAutomaton\App.xaml
-3284614949
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\App.xaml
+351268769
 
-13-1604866833
-19512251658
-ColorDialog.xaml;MainWindow.xaml;Window1.xaml;
+151091081235
+19-1852827996
+ColorDialog.xaml;MainWindow.xaml;AddRuleWindow.xaml;
 
-True
+False
 

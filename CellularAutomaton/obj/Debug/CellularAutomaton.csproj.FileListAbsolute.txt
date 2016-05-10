@@ -32,3 +32,37 @@ E:\Visual studio apps\CellularAutomaton\CellularAutomaton\bin\Debug\sv\Xceed.Wpf
 E:\Visual studio apps\CellularAutomaton\CellularAutomaton\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 E:\Visual studio apps\CellularAutomaton\CellularAutomaton\obj\Debug\ColorDialog.baml
 E:\Visual studio apps\CellularAutomaton\CellularAutomaton\obj\Debug\ColorDialog.g.cs
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\CellularAutomaton.exe.config
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\CellularAutomaton.exe
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\CellularAutomaton.pdb
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\CellularAutomaton.exe
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\CellularAutomaton.pdb
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\ColorDialog.baml
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\ColorDialog.g.cs
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\MainWindow.g.cs
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\App.g.cs
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\CellularAutomaton_MarkupCompile.cache
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\CellularAutomaton_MarkupCompile.lref
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\MainWindow.baml
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\CellularAutomaton.g.resources
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\CellularAutomaton.Properties.Resources.resources
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\CellularAutomaton.csproj.GenerateResource.Cache
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\AddRuleWindow.g.cs
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\AddRuleWindow.baml
+C:\Users\wpiot\cellaut\CellAut\CellularAutomaton\obj\Debug\CellularAutomaton.csprojResolveAssemblyReference.cache
