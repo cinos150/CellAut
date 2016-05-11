@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:CellularAutomaton"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
+        ShowInTaskbar="False"
+        Topmost="True"
         Title="Add new rule" Height="500" Width="500">
     <Grid >
-        <Grid Name="positionBasedButtonGrid" Margin="10,74,193,147">
+        <Grid Name="PositionBasedButtonGrid" Margin="10,74,193,147">
             <Grid.RowDefinitions>
 
                 <RowDefinition Height="*" />
@@ -32,24 +34,36 @@
 
             </Grid.ColumnDefinitions>
         </Grid>
-        <Button x:Name="outputStateButton" Click="MatrixButtonClick" Background="Gray" HorizontalContentAlignment="Center" Content="OutputState" HorizontalAlignment="Center" Margin="392,174,24,221" Width="76" Height="75"/>
-        <Label x:Name="label" Content="Output State" HorizontalAlignment="Left" Margin="390,143,0,0" VerticalAlignment="Top" Width="83"/>
+        <Button x:Name="OutputStateButton" Click="MatrixButtonClick" HorizontalContentAlignment="Center" Content="Dead" HorizontalAlignment="Right" Margin="0,0,28,70" Width="76" Height="75"/>
+        <Label x:Name="Label" Content="Output State" HorizontalAlignment="Right" Margin="0,0,24,180" VerticalAlignment="Center" Width="83"/>
 
-        <Grid Name="numberRulesGrid"/>
-        <xctk:IntegerUpDown Name="countControl" Margin="67,335,365,90"  Maximum="24" Minimum="0"/>
-        <ComboBox x:Name="countStateControl"  HorizontalAlignment="Left" Margin="127,345,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label x:Name="firstLabel" Content="If there is" HorizontalAlignment="Left" Margin="0,345,0,0" VerticalAlignment="Top" Width="67"/>
-        <Label x:Name="cellsLabel" Content="cells" HorizontalAlignment="Left" Margin="202,341,0,0" VerticalAlignment="Top" Width="38"/>
+        <Grid Name="NumberRulesGrid" Margin="0,17,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="101*"/>
+                <ColumnDefinition Width="22*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <xctk:IntegerUpDown Name="CountControl" Margin="70,0,0,42"  Maximum="24" Minimum="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="54" Height="20"/>
+        <ComboBox x:Name="CountStateControl"  HorizontalAlignment="Left" Margin="143,406,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="FirstLabel" Content="If there is" HorizontalAlignment="Left" Margin="7,0,0,38" VerticalAlignment="Bottom" Width="67"/>
+        <Label x:Name="CellsLabel" Content="cells" HorizontalAlignment="Left" Margin="228,406,0,0" VerticalAlignment="Top" Width="38"/>
 
 
 
 
-        <ComboBox x:Name="outputstatecontrol" HorizontalAlignment="Left" Margin="416,372,0,0" VerticalAlignment="Top" Width="75 "/>
-        <ComboBox x:Name="inputstateControl" HorizontalAlignment="Left" Margin="274,372,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label x:Name="label_Copy2" Content="becomes" HorizontalAlignment="Left" Margin="354,370,0,0" VerticalAlignment="Top" Width="61"/>
-        <Label x:Name="label_Copy3" Content="then" HorizontalAlignment="Left" Margin="231,370,0,0" VerticalAlignment="Top" Width="68"/>
-        <Button x:Name="button1" Content="Add number based rule" HorizontalAlignment="Left" Margin="218,322,0,0" VerticalAlignment="Top" Width="173" />
-        <Button x:Name="button1_Copy" Content="Add position based"  HorizontalAlignment="Left" Margin="375,254,0,0" VerticalAlignment="Top" Width="107" Click="positionBasedButton" Height="37"/>
+        <ComboBox x:Name="outputstatecontrol" HorizontalAlignment="Left" Margin="412,437,0,0" VerticalAlignment="Top" Width="75 "/>
+        <ComboBox x:Name="inputstateControl" HorizontalAlignment="Left" Margin="266,437,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="label_Copy2" Content="becomes" HorizontalAlignment="Left" Margin="346,433,0,0" VerticalAlignment="Top" Width="61"/>
+        <Label x:Name="label_Copy3" Content="then" HorizontalAlignment="Left" Margin="266,406,0,0" VerticalAlignment="Top" Width="68"/>
+        <Button x:Name="button1" Content="Add number based rule" HorizontalAlignment="Right" Margin="0,0,5,150" VerticalAlignment="Bottom" Width="173" Click="NumberBasedButton" />
+        <Button x:Name="button1_Copy" Content="Add position based"  HorizontalAlignment="Right" Margin="0,0,10,190" VerticalAlignment="Bottom" Width="107" Click="positionBasedButton" Height="37"/>
+        <DockPanel Height="17" LastChildFill="False" VerticalAlignment="Top">
+            <Menu x:Name="load" VerticalContentAlignment="Stretch" Height="17" VerticalAlignment="Top" Width="492" >
+                <MenuItem Name="loadItem"  Header="Load"  Margin="10,0,0,0" Click="loadItem_Click">
+                    
+                 </MenuItem>
+            </Menu>
+        </DockPanel>
 
 
     </Grid>

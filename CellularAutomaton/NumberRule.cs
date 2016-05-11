@@ -6,72 +6,27 @@ using System.Threading.Tasks;
 
 namespace CellularAutomaton
 {
-   public  class NumberRule
+    [Serializable]
+    public  class NumberRule
     {
+       public byte Count { get; private   set; }
 
-        private int count;
-        private int StateChoosen;
-        private int inputState;
-        private int outputState;
+       public byte StateChoosen1 { get; private set; }
 
-        public int Count
+       public byte InputState { get; private set; }
+
+       public byte OutputState { get; private set; }
+
+       public NumberRule(byte count, byte stateChoosen, byte inputState, byte outputState)
         {
-            get
-            {
-                return count;
-            }
-
-          private   set
-            {
-                count = value;
-            }
+            Count = count;
+            StateChoosen1 = stateChoosen;
+            InputState = inputState;
+            OutputState = outputState;
         }
 
-        public int StateChoosen1
-        {
-            get
-            {
-                return StateChoosen;
-            }
 
-            private set
-            {
-                StateChoosen = value;
-            }
-        }
 
-        public int InputState
-        {
-            get
-            {
-                return inputState;
-            }
 
-            private set
-            {
-                inputState = value;
-            }
-        }
-
-        public int OutputState
-        {
-            get
-            {
-                return outputState;
-            }
-
-            private set
-            {
-                outputState = value;
-            }
-        }
-
-        public NumberRule(int count, int stateChoosen, int inputState, int outputState)
-        {
-            this.Count = count;
-            this.StateChoosen = stateChoosen;
-            this.InputState = inputState;
-            this.OutputState = outputState;
-        }
     }
 }

@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,6 +39,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -83,6 +86,10 @@
     <Compile Include="ColorDialog.xaml.cs">
       <DependentUpon>ColorDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CurrAppliedRules.xaml.cs">
+      <DependentUpon>CurrAppliedRules.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSettings.cs" />
     <Compile Include="LogicGrid.cs" />
     <Compile Include="NumberRule.cs" />
     <Compile Include="PositionRule.cs" />
@@ -90,7 +97,12 @@
     <Compile Include="AddRuleWindow.xaml.cs">
       <DependentUpon>AddRuleWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WaitCursor.cs" />
     <Page Include="ColorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CurrAppliedRules.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

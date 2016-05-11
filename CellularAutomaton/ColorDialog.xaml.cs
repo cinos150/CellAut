@@ -48,7 +48,7 @@ namespace CellularAutomaton
         {
             if (e.Key == Key.Enter)
             {
-                this.Close();
+                Close();
             }
         }
 

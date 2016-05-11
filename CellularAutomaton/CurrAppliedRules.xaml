@@ -1,0 +1,30 @@
+﻿<Window x:Class="CellularAutomaton.CurrAppliedRules"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CellularAutomaton"
+        xmlns:drawing="clr-namespace:System.Drawing;assembly=System.Drawing"
+        mc:Ignorable="d"
+        ShowInTaskbar="False"
+        Topmost="True"
+        
+        Title="CurrAppliedRules" Height="468" Width="499.333">
+
+  
+    <Grid Margin="10,0,2,0">
+        <ListView x:Name="NumberBasedListView" PreviewMouseRightButtonUp="numberBasedClick"  Margin="25,57,273,157" Width="182" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"/>
+
+        <ListView x:Name="PositionBasedListView" PreviewMouseRightButtonUp="positionBasedClick" Margin="0,57,10,157" HorizontalAlignment="Right" Width="213"/>
+
+
+
+
+
+        <Label x:Name="label" Content="Number Based" HorizontalAlignment="Center" Margin="68,2,323,404"/>
+        <Label x:Name="label1" Content="PositionBased" Margin="323,2,72,404" HorizontalAlignment="Center"/>
+        <Button x:Name="RefreshNumberBased" Content="refresh Number Based" HorizontalAlignment="Left" Margin="40,0,0,100" VerticalAlignment="Bottom" Width="141" Height="33" Click="RefreshNumberBased_Click"/>
+        <Button x:Name="RefreshPositionBased" Content="refresh Position Based" HorizontalAlignment="Right" Margin="0,0,30,100" VerticalAlignment="Bottom" Width="143" Height="33" Click="RefreshPositionBased_Click"/>
+
+    </Grid>
+</Window>

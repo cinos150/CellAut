@@ -11,16 +11,11 @@ namespace CellularAutomaton
 
     public class RuleSet 
     {
-        public static List<PositionRule> positionRules = new List<PositionRule>();
-        public static List<NumberRule> numberRule = new  List<NumberRule>();
+        public static List<PositionRule> PositionRules = new List<PositionRule>();
+        public static List<NumberRule> NumberRule = new  List<NumberRule>();
 
 
-        enum States { Empty, Alive, Dead };
-
-        public RuleSet()
-        {
-
-        }
+    
 
         public static bool isContrary(NumberRule rule1, PositionRule rule2)
         {
@@ -29,22 +24,21 @@ namespace CellularAutomaton
 
             switch (rule1.StateChoosen1)
             {
-                case (int)States.Empty:
+                case (int)GlobalSettings.States.Empty:
                     if (rule1.Count == rule2.EmptyCount && rule2.DeadCount == 0 && rule2.AliveCount == 0)
                         return true;
                     break;
 
-                case (int)States.Dead:
+                case (int)GlobalSettings.States.Dead:
                     if (rule1.Count == rule2.DeadCount && rule2.AliveCount ==0)
                         return true;
                     break;
 
-                case (int)States.Alive:
+                case (int)GlobalSettings.States.Alive:
                     if (rule1.Count == rule2.AliveCount && rule2.DeadCount == 0)
                         return true;
                     break;
-                default:
-                    break;
+             
                    
             }
 
@@ -62,7 +56,9 @@ namespace CellularAutomaton
             if (rule1.OutputState == rule2.OutputState)
                 return false;
 
-            if (rule1.Count == rule2.Count)
+
+
+            if (rule1.Count == rule2.Count && rule1.StateChoosen1 == rule2.StateChoosen1 && rule1.OutputState != rule2.OutputState)
                 return true;
 
             return false;
@@ -88,13 +84,13 @@ namespace CellularAutomaton
             {
                 for (int j = 0; j < rule1.Neighbourhood.GetLength(1); j++)
                 {
-                    //if (i == 2 && j == 2 && rule1.Neighbourhood[i, j] != rule2.Neighbourhood[i, j])
-                    //    return false;
-
+                   
                     if (rule1.Neighbourhood[i, j] != rule2.Neighbourhood[i, j])
                         return false;
                 }      
             }
+
+
 
             return true;
         }

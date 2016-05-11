@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace CellularAutomaton
 {
@@ -22,28 +14,25 @@ namespace CellularAutomaton
     {
         private const int yDim = 5;
         private const int xDim = 5;
-        private SolidColorBrush empty;
-        private SolidColorBrush dead ;
-        private SolidColorBrush alive;
-        private enum States { Empty, Alive, Dead};
+    
 
-        private Button[,] buttonList = new Button[xDim,yDim];
-        public AddRuleWindow(SolidColorBrush empty, SolidColorBrush dead, SolidColorBrush alive)
+        private readonly Button[,] _buttonList = new Button[xDim,yDim];
+        public AddRuleWindow()
         {
-            this.empty = empty;
-            this.dead = dead;
-            this.alive = alive;
+            
 
-            String[] dropStrings = new string[] {"Empty", "Alive", "Dead"};
+           
            
 
             InitializeComponent();
 
 
 
-            outputstatecontrol.ItemsSource = inputstateControl.ItemsSource = countStateControl.ItemsSource =  dropStrings;
-            outputStateButton.Tag = -1;
 
+            outputstatecontrol.SelectedValue = inputstateControl.SelectedValue = CountStateControl.SelectedValue = "Empty";
+            outputstatecontrol.ItemsSource = inputstateControl.ItemsSource = CountStateControl.ItemsSource =  GlobalSettings.StatesName;
+            OutputStateButton.Background = GlobalSettings.StateColors[(int) GlobalSettings.States.Dead];
+            OutputStateButton.Tag = (byte) GlobalSettings.States.Dead;
 
             for (int y = 0; y < yDim; y++)
             {
@@ -54,31 +43,25 @@ namespace CellularAutomaton
                       Content = "Empty",
                         HorizontalAlignment = HorizontalAlignment.Stretch,
                         VerticalAlignment = VerticalAlignment.Stretch,
-                       Background = empty,
-                       Tag = (int)States.Empty
+                       Background = GlobalSettings.StateColors[(int)GlobalSettings.States.Empty],
+                       Tag = (byte)GlobalSettings.States.Empty
                    
                     };
 
                     butt.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(MatrixButtonClick));
-                    buttonList[y, x] = butt;
-                    if (y == 2 && x == 2)
-                    {
-                        butt.Background = empty;
-                        butt.Content = "Input State";
-                        
-                    }
+                    _buttonList[y, x] = butt;
+                   
 
 
                     Grid.SetRow(butt, x);
                     Grid.SetColumn(butt, y);
-                    positionBasedButtonGrid.Children.Add(butt);
+                    PositionBasedButtonGrid.Children.Add(butt);
                 }
             }
 
 
 
-
-
+           
 
 
         }
@@ -88,21 +71,23 @@ namespace CellularAutomaton
 
         private void MatrixButtonClick(object sender, EventArgs e)
         {
-            if (sender is Button)
+            var b = sender as Button;
+            if (b != null)
             {
-                Button b = sender as Button;
 
-                b.Background = (b.Background == empty)
-                    ? dead
-                    : (b.Background == dead) ? alive : empty;
 
-                b.Content = (b.Background == empty)
+
+                b.Background = Equals(b.Background, GlobalSettings.StateColors[(int)GlobalSettings.States.Empty])
+                    ? GlobalSettings.StateColors[(int)GlobalSettings.States.Dead]
+                    : (Equals(b.Background, GlobalSettings.StateColors[(int)GlobalSettings.States.Dead])) ? GlobalSettings.StateColors[(int)GlobalSettings.States.Alive] : GlobalSettings.StateColors[(int)GlobalSettings.States.Empty];
+
+                b.Content = Equals(b.Background, GlobalSettings.StateColors[(int)GlobalSettings.States.Empty])
                     ? "Empty"
-                    : (b.Background == dead) ?"Dead" : "Alive";
+                    : (Equals(b.Background, GlobalSettings.StateColors[(int)GlobalSettings.States.Dead])) ?"Dead" : "Alive";
 
-                b.Tag = (b.Background == empty)
-                   ? (int)States.Empty
-                   : (b.Background == dead) ? (int)States.Dead : (int)States.Alive;
+                b.Tag = (Equals(b.Background, GlobalSettings.StateColors[(int)GlobalSettings.States.Empty]))
+                   ? (byte)GlobalSettings.States.Empty
+                   : (Equals(b.Background, GlobalSettings.StateColors[(int)GlobalSettings.States.Dead])) ? (byte)GlobalSettings.States.Dead : (byte)GlobalSettings.States.Alive;
 
 
 
@@ -112,54 +97,160 @@ namespace CellularAutomaton
         private void positionBasedButton(object sender, RoutedEventArgs e)
         {
 
-            if ((String)buttonList[xDim / 2, yDim / 2].Content == "Input State" || (int)outputStateButton.Tag == -1)
-                return;
+        
 
-            int inputState = 0 ;
-            int[,] neigh = new int[xDim, yDim];
+            byte inputState = 0 ;
+            var neigh = new byte[xDim, yDim];
             for (int i = 0; i < xDim; i++)
             {
                 for (int j = 0; j < yDim; j++)
                 {
 
                     if(i == xDim/2 && j == yDim/2)
-                        inputState = (int)buttonList[i, j].Tag;
+                        inputState = (byte)_buttonList[i, j].Tag;
 
-                    neigh[i, j] = (int)buttonList[i, j].Tag;
+                    neigh[i, j] = (byte)_buttonList[i, j].Tag;
                
                 }
             }
 
 
-            PositionRule PR = new PositionRule(neigh,inputState,(int)outputStateButton.Tag);
+            var pr = new PositionRule(neigh,inputState,(byte)OutputStateButton.Tag);
 
-            bool iscontrary = false;
+            var iscontrary = false;
 
-            foreach (PositionRule sec_rule in RuleSet.positionRules)
+            foreach (PositionRule sec_rule in RuleSet.PositionRules)
             {
-                if (iscontrary = RuleSet.isContrary(sec_rule, PR))
+                if (iscontrary = RuleSet.isContrary(sec_rule, pr))
                     break;
             }
 
-            foreach (NumberRule sec_rule in RuleSet.numberRule)
+            foreach (NumberRule secRule in RuleSet.NumberRule.Where(sec_rule => iscontrary = RuleSet.isContrary(sec_rule, pr)))
             {
-                if (iscontrary = RuleSet.isContrary(sec_rule, PR))
-                    break;
+                break;
             }
 
 
             if (!iscontrary)
             {
-                RuleSet.positionRules.Add(PR);
+                RuleSet.PositionRules.Add(pr);
                 Console.WriteLine("No Contrary");
+                MessageBox.Show("Rule Added", "Confirmation", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
             else
-                Console.WriteLine("is Contrary");
+            {
+                Console.WriteLine("Is Contrary");
+                MessageBox.Show("This is contrary", "Confirmation", MessageBoxButton.OK,
+                   MessageBoxImage.Information);
+            }
+        }
+
+        private void NumberBasedButton(object sender, RoutedEventArgs e)
+        {
+            byte numInSurr =0;
+            if (CountControl.Value != null)
+                numInSurr = (byte) CountControl.Value;
+
+
+          var nRule = new   NumberRule(numInSurr, (byte) CountStateControl.SelectedIndex, (byte) inputstateControl.SelectedIndex, (byte) outputstatecontrol.SelectedIndex);
+
+            bool iscontrary = false;
+
+            foreach (PositionRule secRule in RuleSet.PositionRules)
+            {
+                if (iscontrary = RuleSet.isContrary(nRule,secRule ))
+                    break;
+            }
+
+            foreach (NumberRule secRule in RuleSet.NumberRule)
+            {
+                if (iscontrary = RuleSet.isContrary(secRule, nRule))
+                    break;
+            }
+
+
+           
+            if (!iscontrary)
+            {
+                RuleSet.NumberRule.Add(nRule);
+                Console.WriteLine("No Contrary");
+                MessageBox.Show("Rule Added", "Confirmation", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            else
+            {
+                Console.WriteLine("Is Contrary");
+                MessageBox.Show("This is contrary", "Confirmation", MessageBoxButton.OK,
+                   MessageBoxImage.Information);
+            }
+
 
         }
 
-        private void numberBasedButton(object sender, RoutedEventArgs e)
+        private void loadItem_Click(object sender, RoutedEventArgs e)
         {
+            loadItem.Items.Clear();
+
+            for (int i = 0; i < RuleSet.PositionRules.Count; i++)
+            {
+                Label lb = new Label();
+                lb.Content = "Pos Rule nr." + i;
+                lb.Tag = i;
+                lb.MouseDown += Lb_MouseDown;
+                loadItem.Items.Add(lb);
+            }
+
+
+            for (int i = 0; i < RuleSet.NumberRule.Count; i++)
+            {
+                Label lb = new Label();
+                lb.Content = "Num Rule nr." + i +1;
+                lb.Tag = i;
+                lb.MouseDown += Lb_MouseDown;
+                loadItem.Items.Add(lb);
+            }
+
+
+        }
+
+        private void Lb_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var lb = (Label) sender;
+            var x = lb.Content as string;
+
+            if (x.Substring(0, x.IndexOf(" ", StringComparison.Ordinal)) == "Pos")
+            {
+               var chosenRule = RuleSet.PositionRules[(int) lb.Tag];
+                int i = 0;
+                for(int k = 0 ; k < _buttonList.GetLength(0); k++)
+                {
+                    for (int l = 0; l < _buttonList.GetLength(1); l++)
+                    {
+                    _buttonList[k,l].Background = GlobalSettings.StateColors[chosenRule.Neighbourhood[k, l]];
+                    _buttonList[k, l].Content = GlobalSettings.StatesName[chosenRule.Neighbourhood[k, l]];
+                    }
+
+                }
+
+                OutputStateButton.Content = GlobalSettings.StatesName[chosenRule.OutputState];
+                OutputStateButton.Tag = chosenRule.OutputState;
+                OutputStateButton.Background = GlobalSettings.StateColors[chosenRule.OutputState];
+
+
+
+            }
+            else
+            {
+               var chosenRule = RuleSet.NumberRule[(int) lb.Tag];
+
+                CountControl.Value = (int)chosenRule.Count;
+                CountStateControl.SelectedIndex = chosenRule.StateChoosen1;
+                inputstateControl.SelectedIndex = chosenRule.InputState;
+                outputstatecontrol.SelectedIndex = chosenRule.OutputState;
+
+            }
+
 
         }
     }

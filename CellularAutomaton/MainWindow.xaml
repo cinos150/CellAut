@@ -3,29 +3,55 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CellularAutomaton"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
+        KeyDown="MainWindow_OnKeyDown"
+        
         Title="Cellular Automaton" Height="670.5" Width="785" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"  >
 
 
 
-    <Grid Name="VisibleGrid" Background="White">
+    <Grid Name="VisibleGrid" Background="White" >
         <Grid ClipToBounds="True" ZIndex="2">
-        <ToolBar Height="46" VerticalAlignment="Top" Margin="-4,-2,-2,0">
-            <Button HorizontalAlignment="Left" Width="100" Content="Add Rule" VerticalAlignment="Stretch" Click="ButtonBase_OnClick"/>
-            <Button Name="DeadButton" HorizontalAlignment="Left" Width="100" Content="Dead" VerticalAlignment="Stretch" Click="DeadButton_OnClick"/>
-            <Button Name="AliveButton" HorizontalAlignment="Left" Width="100" Content="Alive" VerticalAlignment="Stretch" Click="AliveButton_OnClick"/>
-            <Button Name="EmptyButton" HorizontalAlignment="Left" Width="100" Content="Empty" VerticalAlignment="Stretch" Click="EmptyButton_OnClick"/>
-            <Button Name="ResetButton" HorizontalAlignment="Left" Width="100" Content="Reset" VerticalAlignment="Stretch" Click="ResetButton_OnClick"/>
-            <Button Name="Start" HorizontalAlignment="Left" Width="100" Content="Start" VerticalAlignment="Stretch" Click="Start_OnClick"/>
-            <Button Name="Pause" HorizontalAlignment="Left" Width="100" Content="Pause" VerticalAlignment="Stretch" Click="Pause_OnClick"/>
-            <Button HorizontalAlignment="Left" Width="100" Content="Settings" VerticalAlignment="Stretch"/>
-            <Button HorizontalAlignment="Left" Width="100" Content="Load Rules" VerticalAlignment="Stretch"/>
-            <Button HorizontalAlignment="Left" Width="100" Content="Load Grids" VerticalAlignment="Stretch"/>
-              
-           
-                
+            <ToolBar Height="46" VerticalAlignment="Top" Margin="-4,-2,-2,0">
+                <Button x:Name="AddRuleButton" HorizontalAlignment="Left" Width="100" Content="Add Rule" VerticalAlignment="Stretch" Click="ButtonBase_OnClick"/>
+                <Menu VerticalAlignment="Center">
+                    <MenuItem Header="Colors">
+                        <Button Name="DeadButton" HorizontalAlignment="Left" Width="100" Content="Dead" VerticalAlignment="Stretch" Click="DeadButton_OnClick"/>
+                        <Button Name="AliveButton" HorizontalAlignment="Left" Width="100" Content="Alive" VerticalAlignment="Stretch" Click="AliveButton_OnClick"/>
+                        <Button Name="EmptyButton" HorizontalAlignment="Left" Width="100" Content="Empty" VerticalAlignment="Stretch" Click="EmptyButton_OnClick"/>
+                    </MenuItem>
+
+                    <MenuItem Header="Load">
+                        <Button HorizontalAlignment="Left" Width="100" Content="Position Rule" VerticalAlignment="Stretch" Click="LoadPositionRuleButtonClick"/>
+                        <Button HorizontalAlignment="Left" Width="100" Content="Number Rule" VerticalAlignment="Stretch" Click="LoadNumberRuleButtonClick"/>
+                        <Button HorizontalAlignment="Left" Width="100" Content="Grid" VerticalAlignment="Stretch" Click="LoadGridButtonClick"/>
+                    </MenuItem>
+
+                    <MenuItem Header="Save">
+                        <Button HorizontalAlignment="Left" Width="100" Content="Position Rules" VerticalAlignment="Stretch" Click="SaveRulesPositionButtonClick"/>
+                        <Button HorizontalAlignment="Left" Width="100" Content="Number Rules" VerticalAlignment="Stretch" Click="SaveRuleNumberButtonClick"/>
+                        <Button HorizontalAlignment="Left" Width="100" Content="Grid" VerticalAlignment="Stretch" Click="SaveGridButtonClick"/>
+                    </MenuItem>
+
+
+
+                    <MenuItem Name="resetMenuItem" Header="Reset">
+                        <Button Name="ResetGridButton" HorizontalAlignment="Left" Width="100" Content="Grid" VerticalAlignment="Stretch" Click="ResetGridResetButtonOnClick"/>
+                        <Button Name="ResetRulesButton" HorizontalAlignment="Left" Width="100" Content="Rules" VerticalAlignment="Stretch" Click="ResetRulesButton_OnClick"/>
+
+                    </MenuItem>
+
+                </Menu>
+                <xctk:IntegerUpDown Name="stepIteration" HorizontalAlignment="Left" Width="73" VerticalAlignment="Bottom" Value="1" Minimum="1" Maximum="50" Height="25" Margin="0,0,0,6"/>
+
+                <Button Name="StartSimulationButton" HorizontalAlignment="Left" Width="100" Content="Start" VerticalAlignment="Stretch" Click="Start_OnClick"/>
+                <Button Name="StopButton" IsEnabled="false" HorizontalAlignment="Left" Width="100" Content="Stop" VerticalAlignment="Stretch" Click="StopResetOnClick"/>
+                <Button x:Name="CurrentlyActiveButton" HorizontalAlignment="Left" Width="100" Content="Currently Active" VerticalAlignment="Stretch" Click="HistoryButtonClick"/>
+
+
+
+
 
             </ToolBar>
         </Grid>
